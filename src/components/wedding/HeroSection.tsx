@@ -20,6 +20,36 @@ export function HeroSection({ coupleName, theme, date, coverPhoto }: HeroSection
     weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
   });
 
+  const getThemeContent = () => {
+    switch (theme) {
+      case 'modern':
+        return (
+          <h1 className="text-6xl md:text-8xl font-sans font-bold tracking-tighter mb-4">
+            {names[0]} <span className="text-pink-400">&amp;</span> {names[1] || names[0]}
+          </h1>
+        );
+      case 'botanical':
+        return (
+          <h1 className="text-6xl md:text-8xl font-serif italic text-emerald-200 mb-4">
+            {names[0]} &amp; {names[1] || names[0]}
+          </h1>
+        );
+      case 'elegant':
+        return (
+          <h1 className="text-6xl md:text-8xl font-serif uppercase tracking-widest text-amber-400 mb-4">
+            {names[0]} &amp; {names[1] || names[0]}
+          </h1>
+        );
+      case 'classic':
+      default:
+        return (
+          <h1 className="text-6xl md:text-8xl font-serif italic mb-4">
+            {names[0]} &amp; {names[1] || names[0]}
+          </h1>
+        );
+    }
+  };
+
   return (
     <div className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
       <div 
@@ -38,15 +68,7 @@ export function HeroSection({ coupleName, theme, date, coverPhoto }: HeroSection
           The Wedding Of
         </span>
         
-        {isModern ? (
-          <h1 className="text-6xl md:text-8xl font-sans font-bold tracking-tighter mb-4">
-            {names[0]} <span className="text-pink-400">&amp;</span> {names[1] || names[0]}
-          </h1>
-        ) : (
-          <h1 className="text-6xl md:text-8xl font-serif italic mb-4">
-            {names[0]} &amp; {names[1] || names[0]}
-          </h1>
-        )}
+        {getThemeContent()}
 
         <div className="w-16 h-[1px] bg-white/60 mx-auto my-8" />
         

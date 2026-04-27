@@ -139,6 +139,8 @@ function CreateWeddingForm() {
                   <select {...register("template_theme")} className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-900">
                     <option value="classic">Classic (Rose Gold / Coklat)</option>
                     <option value="modern">Modern (Monochrome / Modern Minimalist)</option>
+                    <option value="botanical">Botanical (Emerald Green / Elegan)</option>
+                    <option value="elegant">Elegant (Dark Mode / Zinc Gold)</option>
                   </select>
                 </div>
 

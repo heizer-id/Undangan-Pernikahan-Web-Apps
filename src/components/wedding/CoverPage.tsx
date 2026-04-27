@@ -10,9 +10,10 @@ interface CoverPageProps {
   date: string;
   musicUrl?: string;
   bgClassName?: string;
+  theme?: string;
 }
 
-export function CoverPage({ brideName, groomName, date, musicUrl, bgClassName }: CoverPageProps) {
+export function CoverPage({ brideName, groomName, date, musicUrl, bgClassName, theme }: CoverPageProps) {
   const [isOpen, setIsOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -45,7 +46,12 @@ export function CoverPage({ brideName, groomName, date, musicUrl, bgClassName }:
           <div className="absolute inset-0 bg-black/30" />
           <div className="relative z-10 text-center space-y-8 max-w-[80vw] sm:max-w-md mx-auto p-8 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20">
             <p className="text-sm tracking-widest uppercase opacity-80">The Wedding Of</p>
-            <h1 className="text-5xl font-serif">
+            <h1 className={`text-5xl ${
+              theme === 'modern' ? 'font-sans font-bold tracking-tighter' : 
+              theme === 'botanical' ? 'font-serif italic text-emerald-100' : 
+              theme === 'elegant' ? 'font-serif uppercase tracking-widest text-amber-200' : 
+              'font-serif'
+            }`}>
               {brideName || "Bride"} 
               <br/><span className="text-3xl my-2 inline-block">&</span><br/> 
               {groomName || "Groom"}

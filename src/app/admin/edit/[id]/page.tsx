@@ -170,6 +170,8 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
                   <select {...register("template_theme")} className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-900">
                     <option value="classic">Classic</option>
                     <option value="modern">Modern</option>
+                    <option value="botanical">Botanical</option>
+                    <option value="elegant">Elegant</option>
                   </select>
                 </div>
 

@@ -15,7 +15,7 @@ export interface Wedding {
   music_url?: string;
   digital_gifts?: string; // Stored as JSON string
   user_email: string;
-  template_theme: 'classic' | 'modern' | string;
+  template_theme: 'classic' | 'modern' | 'botanical' | 'elegant' | string;
   guest_password?: string;
   created_at?: string;
   is_published?: boolean | string; // GAS sometimes returns string "TRUE"

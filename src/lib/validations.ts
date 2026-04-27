@@ -32,7 +32,7 @@ export const weddingSchema = z.object({
   gallery_photos: z.string().optional(),
   music_url: z.string().url("URL musik tidak valid").optional().or(z.literal('')),
   digital_gifts: z.string().optional(),
-  template_theme: z.enum(["classic", "modern"]),
+  template_theme: z.enum(["classic", "modern", "botanical", "elegant"]),
   guest_password: z.string().optional(),
   is_published: z.boolean().optional(),
 });
