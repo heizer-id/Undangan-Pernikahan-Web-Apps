@@ -1,10 +1,19 @@
 export interface Wedding {
   wedding_id?: string;
-  couple_name: string;
+  couple_name: string; // Used as an overarching title if needed
+  bride_name?: string;
+  bride_parents?: string;
+  bride_ig?: string;
+  groom_name?: string;
+  groom_parents?: string;
+  groom_ig?: string;
   date: string; // ISO String
   venue: string;
   story: string;
   cover_photo: string;
+  gallery_photos?: string; // Stored as comma-separated URLs or JSON string
+  music_url?: string;
+  digital_gifts?: string; // Stored as JSON string
   user_email: string;
   template_theme: 'classic' | 'modern' | string;
   guest_password?: string;

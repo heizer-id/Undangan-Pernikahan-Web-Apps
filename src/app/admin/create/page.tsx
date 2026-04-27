@@ -94,6 +94,42 @@ function CreateWeddingForm() {
               </div>
             </div>
 
+            <div className="space-y-4 bg-rose-50 p-6 rounded-xl border border-rose-100">
+              <h3 className="font-bold border-b border-rose-200 pb-2 text-rose-950">Detail Mempelai Wanita</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Nama Lengkap / Panggilan</Label>
+                  <Input {...register("bride_name")} placeholder="Putri Juliet" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Nama Orang Tua</Label>
+                  <Input {...register("bride_parents")} placeholder="Putri dari Bapak A & Ibu B" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Username Instagram</Label>
+                  <Input {...register("bride_ig")} placeholder="@juliet_capulet" />
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-4 bg-slate-100 p-6 rounded-xl border border-slate-200">
+              <h3 className="font-bold border-b border-slate-300 pb-2 text-slate-800">Detail Mempelai Pria</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Nama Lengkap / Panggilan</Label>
+                  <Input {...register("groom_name")} placeholder="Pangeran Romeo" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Nama Orang Tua</Label>
+                  <Input {...register("groom_parents")} placeholder="Putra dari Bapak C & Ibu D" />
+                </div>
+                <div className="space-y-2">
+                  <Label>Username Instagram</Label>
+                  <Input {...register("groom_ig")} placeholder="@romeo_montague" />
+                </div>
+              </div>
+            </div>
+
             <div className="space-y-4 p-6 border border-slate-200 rounded-xl">
               <h3 className="font-bold border-b pb-2">Desain & Konten Tambahan</h3>
               
@@ -120,6 +156,31 @@ function CreateWeddingForm() {
                   className="flex min-h-[120px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
                   placeholder="Ceritakan awal mula pertemuan kalian hingga memutuskan untuk menikah..."
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label>URL Musik Latar / Backsound (Opsional)</Label>
+                <Input {...register("music_url")} placeholder="https://contoh.com/musik.mp3" />
+                <p className="text-xs text-slate-500">Masukkan link file audio yang valid untuk diputar otomatis.</p>
+              </div>
+
+              <div className="space-y-2">
+                <Label>URL Galeri Foto (Opsional, pisahkan dengan koma)</Label>
+                <textarea 
+                  {...register("gallery_photos")} 
+                  className="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+                  placeholder="https://img1.com/a.jpg, https://img2.com/b.jpg"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label>Rekening Amplop Digital (Opsional)</Label>
+                <textarea 
+                  {...register("digital_gifts")} 
+                  className="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+                  placeholder='BCA - 12345678 - Romeo | GoPay - 08123456 - Juliet'
+                />
+                <p className="text-xs text-slate-500">Pisahkan entri dengan tanda `|`. Format: Bank - Rekening - Nama.</p>
               </div>
 
               <div className="flex items-center gap-2 mt-4">

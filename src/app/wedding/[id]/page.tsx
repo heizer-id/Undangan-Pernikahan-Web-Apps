@@ -4,7 +4,10 @@ import { HeroSection } from "@/components/wedding/HeroSection";
 import { CountdownTimer } from "@/components/wedding/CountdownTimer";
 import { RSVPForm } from "@/components/wedding/RSVPForm";
 import { GuestBook } from "@/components/wedding/GuestBook";
-import { MapPin, CalendarHeart } from "lucide-react";
+import { CoverPage } from "@/components/wedding/CoverPage";
+import { PhotoGallery } from "@/components/wedding/PhotoGallery";
+import { DigitalGift } from "@/components/wedding/DigitalGift";
+import { MapPin, CalendarHeart, AtSign } from "lucide-react";
 
 // For App Router dynamic page
 export default async function WeddingPage({ params }: { params: Promise<{ id: string }> }) {
@@ -23,8 +26,16 @@ export default async function WeddingPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className={`min-h-screen ${bgClass}`} suppressHydrationWarning>
+      <CoverPage 
+        brideName={wedding.bride_name || wedding.couple_name?.split('&')[0] || "Bride"} 
+        groomName={wedding.groom_name || wedding.couple_name?.split('&')[1] || "Groom"} 
+        date={wedding.date}
+        musicUrl={wedding.music_url}
+        bgClassName={bgClass}
+      />
+
       <HeroSection 
-        coupleName={wedding.couple_name} 
+        coupleName={wedding.bride_name && wedding.groom_name ? `${wedding.bride_name} & ${wedding.groom_name}` : wedding.couple_name} 
         date={wedding.date} 
         theme={wedding.template_theme} 
         coverPhoto={wedding.cover_photo} 
@@ -50,6 +61,39 @@ export default async function WeddingPage({ params }: { params: Promise<{ id: st
           )}
         </div>
       </section>
+
+      {/* Profil Mempelai */}
+      <section className="py-24 px-4 bg-white/10">
+        <div className="max-w-4xl mx-auto text-center space-y-16">
+          <div className="space-y-4">
+            <p className="tracking-widest uppercase text-sm opacity-60">Mempelai Kami</p>
+            <h2 className="text-4xl font-serif">Sang Mempelai</h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-16">
+            <div className="space-y-6">
+              <h3 className="text-3xl font-serif">{wedding.bride_name || "Mempelai Wanita"}</h3>
+              <p className="opacity-80">{wedding.bride_parents}</p>
+              {wedding.bride_ig && (
+                <a href={`https://instagram.com/${wedding.bride_ig.replace('@','')}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm opacity-60 hover:opacity-100 transition">
+                  <AtSign className="w-4 h-4" /> {wedding.bride_ig}
+                </a>
+              )}
+            </div>
+            <div className="space-y-6">
+              <h3 className="text-3xl font-serif">{wedding.groom_name || "Mempelai Pria"}</h3>
+              <p className="opacity-80">{wedding.groom_parents}</p>
+              {wedding.groom_ig && (
+                <a href={`https://instagram.com/${wedding.groom_ig.replace('@','')}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm opacity-60 hover:opacity-100 transition">
+                  <AtSign className="w-4 h-4" /> {wedding.groom_ig}
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <PhotoGallery photos={wedding.gallery_photos} />
 
       <section className="py-24 px-4">
         <div className="max-w-4xl mx-auto">
@@ -87,6 +131,8 @@ export default async function WeddingPage({ params }: { params: Promise<{ id: st
           </div>
         </div>
       </section>
+      
+      <DigitalGift gifts={wedding.digital_gifts} theme={wedding.template_theme} />
 
       <section className="py-24 px-4 bg-white/80">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-start">

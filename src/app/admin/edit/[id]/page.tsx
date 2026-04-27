@@ -50,7 +50,16 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
             story: wRes.data.story,
             cover_photo: wRes.data.cover_photo,
             template_theme: wRes.data.template_theme as "classic" | "modern",
-            is_published: wRes.data.is_published === 'TRUE' || wRes.data.is_published === true
+            is_published: wRes.data.is_published === 'TRUE' || wRes.data.is_published === true,
+            bride_name: wRes.data.bride_name || "",
+            bride_parents: wRes.data.bride_parents || "",
+            bride_ig: wRes.data.bride_ig || "",
+            groom_name: wRes.data.groom_name || "",
+            groom_parents: wRes.data.groom_parents || "",
+            groom_ig: wRes.data.groom_ig || "",
+            music_url: wRes.data.music_url || "",
+            gallery_photos: wRes.data.gallery_photos || "",
+            digital_gifts: wRes.data.digital_gifts || ""
           });
         }
         if (gRes.success) setGuests(gRes.data);
@@ -105,9 +114,45 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
             <CardContent>
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Nama Pasangan</Label>
+                  <Label>Nama Pasangan (Judul Utama)</Label>
                   <Input {...register("couple_name")} />
                   {errors.couple_name && <p className="text-red-500 text-xs">{errors.couple_name.message}</p>}
+                </div>
+
+                <div className="space-y-4 bg-rose-50 p-4 rounded-xl border border-rose-100">
+                  <h3 className="font-bold border-b border-rose-200 pb-2 text-rose-950 text-sm">Detail Mempelai Wanita</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-xs">Nama Lengkap / Panggilan</Label>
+                      <Input {...register("bride_name")} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs">Nama Orang Tua</Label>
+                      <Input {...register("bride_parents")} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs">Username Instagram</Label>
+                      <Input {...register("bride_ig")} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4 bg-slate-100 p-4 rounded-xl border border-slate-200">
+                  <h3 className="font-bold border-b border-slate-300 pb-2 text-slate-800 text-sm">Detail Mempelai Pria</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label className="text-xs">Nama Lengkap / Panggilan</Label>
+                      <Input {...register("groom_name")} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs">Nama Orang Tua</Label>
+                      <Input {...register("groom_parents")} />
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-xs">Username Instagram</Label>
+                      <Input {...register("groom_ig")} />
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="space-y-2">
@@ -136,6 +181,21 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
                 <div className="space-y-2">
                   <Label>Kisah Cinta</Label>
                   <textarea {...register("story")} className="flex min-h-[120px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm" />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>URL Musik Latar</Label>
+                  <Input {...register("music_url")} placeholder="https://..." />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>URL Galeri Foto (Pisahkan dengan koma)</Label>
+                  <textarea {...register("gallery_photos")} className="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm" placeholder="URL1, URL2" />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Rekening Amplop Digital</Label>
+                  <textarea {...register("digital_gifts")} className="flex min-h-[80px] w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm shadow-sm" placeholder="Bank - Rekening - Nama" />
                 </div>
 
                 <div className="flex items-center gap-2 mt-4 pb-4">

@@ -11,7 +11,7 @@ function setup() {
   let weddingsSheet = ss.getSheetByName(CONFIG.SHEET_WEDDINGS);
   if (!weddingsSheet) {
     weddingsSheet = ss.insertSheet(CONFIG.SHEET_WEDDINGS);
-    weddingsSheet.appendRow(['wedding_id', 'couple_name', 'date', 'venue', 'story', 'cover_photo', 'user_email', 'template_theme', 'guest_password', 'created_at', 'is_published']);
+    weddingsSheet.appendRow(['wedding_id', 'couple_name', 'date', 'venue', 'story', 'cover_photo', 'user_email', 'template_theme', 'guest_password', 'created_at', 'is_published', 'bride_name', 'bride_parents', 'bride_ig', 'groom_name', 'groom_parents', 'groom_ig', 'music_url', 'gallery_photos', 'digital_gifts']);
   }
   
   // Guests
@@ -98,16 +98,25 @@ function doPost(e) {
       const newId = Utilities.getUuid();
       s.appendRow([
         newId,
-        body.couple_name,
-        body.date,
-        body.venue,
-        body.story,
+        body.couple_name || '',
+        body.date || '',
+        body.venue || '',
+        body.story || '',
         body.cover_photo || '',
-        body.user_email,
+        body.user_email || '',
         body.template_theme || 'classic',
         body.guest_password || '',
         new Date().toISOString(),
-        body.is_published ? 'TRUE' : 'FALSE'
+        body.is_published ? 'TRUE' : 'FALSE',
+        body.bride_name || '',
+        body.bride_parents || '',
+        body.bride_ig || '',
+        body.groom_name || '',
+        body.groom_parents || '',
+        body.groom_ig || '',
+        body.music_url || '',
+        body.gallery_photos || '',
+        body.digital_gifts || ''
       ]);
       return response({ wedding_id: newId });
     }
@@ -132,9 +141,18 @@ function doPost(e) {
         body.template_theme,
         body.guest_password,
         data[rowIndex-1][9], // keep created_at
-        body.is_published ? 'TRUE' : 'FALSE'
+        body.is_published ? 'TRUE' : 'FALSE',
+        body.bride_name || '',
+        body.bride_parents || '',
+        body.bride_ig || '',
+        body.groom_name || '',
+        body.groom_parents || '',
+        body.groom_ig || '',
+        body.music_url || '',
+        body.gallery_photos || '',
+        body.digital_gifts || ''
       ]];
-      s.getRange(rowIndex, 1, 1, 11).setValues(values);
+      s.getRange(rowIndex, 1, 1, 20).setValues(values);
       return response({ wedding_id: body.wedding_id });
     }
 
