@@ -26,6 +26,12 @@ export const weddingApi = {
     return res.data;
   },
 
+  getAllWeddingsMaster: async (): Promise<ApiResponse<Wedding[]>> => {
+    const url = getGasUrl() + `?action=getAllWeddingsMaster`;
+    const res = await axios.get(url);
+    return res.data;
+  },
+
   createWedding: async (data: Partial<Wedding>): Promise<ApiResponse<{wedding_id: string}>> => {
     const payload = { action: 'createWedding', ...data };
     const res = await api.post(getGasUrl(), JSON.stringify(payload));
@@ -40,6 +46,19 @@ export const weddingApi = {
 
   deleteWedding: async (id: string): Promise<ApiResponse<any>> => {
     const payload = { action: 'deleteWedding', wedding_id: id };
+    const res = await api.post(getGasUrl(), JSON.stringify(payload));
+    return res.data;
+  }
+};
+
+export const authApi = {
+  login: async (email: string, password: string): Promise<ApiResponse<{email: string}>> => {
+    const payload = { action: 'loginUser', email, password };
+    const res = await api.post(getGasUrl(), JSON.stringify(payload));
+    return res.data;
+  },
+  register: async (email: string, password: string): Promise<ApiResponse<{email: string}>> => {
+    const payload = { action: 'registerUser', email, password };
     const res = await api.post(getGasUrl(), JSON.stringify(payload));
     return res.data;
   }

@@ -1,7 +1,8 @@
 const CONFIG = {
   SHEET_WEDDINGS: 'weddings',
   SHEET_GUESTS: 'guests',
-  SHEET_WISHES: 'wishes'
+  SHEET_WISHES: 'wishes',
+  SHEET_USERS: 'users'
 };
 
 function setup() {
@@ -26,6 +27,13 @@ function setup() {
   if (!wishesSheet) {
     wishesSheet = ss.insertSheet(CONFIG.SHEET_WISHES);
     wishesSheet.appendRow(['wish_id', 'wedding_id', 'guest_name', 'message', 'created_at', 'is_private']);
+  }
+
+  // Users
+  let usersSheet = ss.getSheetByName(CONFIG.SHEET_USERS);
+  if (!usersSheet) {
+    usersSheet = ss.insertSheet(CONFIG.SHEET_USERS);
+    usersSheet.appendRow(['email', 'password', 'created_at']);
   }
 }
 
@@ -78,6 +86,11 @@ function doGet(e) {
     if (action === 'getWishes') {
       const wedding_id = e.parameter.wedding_id;
       const data = getRowsData(ss.getSheetByName(CONFIG.SHEET_WISHES)).filter(r => r.wedding_id === wedding_id);
+      return response(data);
+    }
+
+    if (action === 'getAllWeddingsMaster') {
+      const data = getRowsData(ss.getSheetByName(CONFIG.SHEET_WEDDINGS));
       return response(data);
     }
     
@@ -198,6 +211,27 @@ function doPost(e) {
         body.is_private ? 'TRUE' : 'FALSE'
       ]);
       return response({ wish_id: newId });
+    }
+
+    if (action === 'registerUser') {
+      const s = ss.getSheetByName(CONFIG.SHEET_USERS);
+      const data = getRowsData(s);
+      const exists = data.find(u => String(u.email).toLowerCase() === String(body.email).toLowerCase());
+      if (exists) return response(null, false, "Email sudah terdaftar");
+      
+      s.appendRow([body.email, body.password, new Date().toISOString()]);
+      return response({ email: body.email });
+    }
+
+    if (action === 'loginUser') {
+      const s = ss.getSheetByName(CONFIG.SHEET_USERS);
+      const data = getRowsData(s);
+      const user = data.find(u => 
+        String(u.email).toLowerCase() === String(body.email).toLowerCase() && 
+        String(u.password) === String(body.password)
+      );
+      if (!user) return response(null, false, "Email atau password salah");
+      return response({ email: user.email });
     }
 
     return response(null, false, "Invalid action");

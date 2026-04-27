@@ -11,60 +11,26 @@ import { Plus, Edit, ExternalLink, Calendar, Users, Copy, Link as LinkIcon } fro
 
 export default function AdminDashboard() {
   const [weddings, setWeddings] = useState<Wedding[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [inputPassword, setInputPassword] = useState("");
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
-    const auth = localStorage.getItem("admin_auth");
-    if (auth === "true") {
-      setIsAuthenticated(true);
-    }
-    setLoading(false);
+    fetchMasterWeddings();
   }, []);
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const correctPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || "admin123";
-    if (inputPassword === correctPassword) {
-      setIsAuthenticated(true);
-      localStorage.setItem("admin_auth", "true");
-      toast("Login berhasil", "success");
-    } else {
-      toast("Password salah!", "error");
-    }
-  };
-
-  const fetchWeddings = async (userEmail: string) => {
+  const fetchMasterWeddings = async () => {
     try {
       setLoading(true);
-      const res = await weddingApi.getAllWeddings(userEmail);
+      const res = await weddingApi.getAllWeddingsMaster();
       if (res.success) {
         setWeddings(res.data || []);
       } else {
-        toast("Gagal memuat data", "error");
+        toast("Gagal memuat data master", "error");
       }
     } catch (err: any) {
-      toast("Error memuat data", "error");
+      toast("Error memuat data master", "error");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("admin_auth");
-    setIsAuthenticated(false);
-    setEmail("");
-    setWeddings([]);
-  };
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      localStorage.setItem("admin_email", email);
-      fetchWeddings(email);
     }
   };
 
@@ -74,90 +40,17 @@ export default function AdminDashboard() {
     toast("Link disalin ke clipboard", "success");
   };
 
-  if (loading && email && isAuthenticated) {
-    return <div className="flex items-center justify-center min-h-[400px]">Memuat dashboard...</div>;
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-[400px]">Memuat data master...</div>;
   }
 
-  // Phase 1: Password Check
-  if (!isAuthenticated) {
-    return (
-      <div className="max-w-md mx-auto mt-20 space-y-6">
-        <h2 className="text-2xl font-serif font-bold text-slate-800 text-center">Dashboard Creator</h2>
-        <Card>
-          <CardContent className="pt-6 space-y-4">
-            <p className="text-xs text-slate-500 text-center uppercase tracking-widest">Akses Terbatas</p>
-            <form onSubmit={handlePasswordSubmit} className="space-y-4">
-              <input 
-                type="password" 
-                required 
-                value={inputPassword}
-                onChange={e => setInputPassword(e.target.value)}
-                placeholder="Masukkan Password Admin"
-                className="flex h-12 w-full rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm focus:ring-2 focus:ring-slate-900 outline-none transition"
-              />
-              <Button type="submit" className="w-full h-12 rounded-xl">Buka Dashboard</Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  // Phase 2: Email Search
-  if (!email || (weddings.length === 0 && !loading)) {
-    return (
-      <div className="max-w-md mx-auto mt-20 space-y-6">
-        <div className="flex justify-between items-end">
-          <h2 className="text-2xl font-serif font-bold text-slate-800">Cari Undangan</h2>
-          <button onClick={handleLogout} className="text-xs text-red-500 hover:underline">Logout</button>
-        </div>
-        <Card>
-          <CardContent className="pt-6 space-y-4">
-            <p className="text-sm text-slate-600">Masukkan email Anda untuk mengelola undangan.</p>
-            <form onSubmit={handleLogin} className="flex gap-2">
-              <input 
-                type="email" 
-                required 
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="email@anda.com"
-                className="flex-1 h-10 rounded-md border border-slate-200 bg-transparent px-3 py-2 text-sm focus:ring-1 focus:ring-slate-900 outline-none"
-              />
-              <Button type="submit">Cari</Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {email && (
-          <div className="text-center mt-10 space-y-4">
-            <p className="text-slate-600 font-medium">Belum ada undangan untuk email ini.</p>
-            <div className="p-6 bg-slate-100 rounded-2xl border border-dashed border-slate-300">
-              <Link href={`/admin/create?email=${encodeURIComponent(email)}`}>
-                <Button size="lg" className="rounded-full shadow-lg"><Plus className="w-4 h-4 mr-2" /> Buat Undangan Pertama</Button>
-              </Link>
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  // Phase 3: Dashboard List
   return (
     <div className="max-w-5xl mx-auto space-y-8" suppressHydrationWarning>
       <div className="flex justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
         <div>
-          <h1 className="text-2xl font-serif font-bold text-slate-800">Wedding Dashboard</h1>
-          <div className="flex items-center gap-3 mt-1">
-            <p className="text-slate-500 text-sm">Owner: {email}</p>
-            <button onClick={() => setEmail("")} className="text-xs text-blue-500 hover:underline">Ganti Email</button>
-            <span className="text-slate-300">|</span>
-            <button onClick={handleLogout} className="text-xs text-red-500 hover:underline">Logout</button>
-          </div>
+          <h1 className="text-2xl font-serif font-bold text-slate-800">Master Admin Dashboard</h1>
+          <p className="text-slate-500 text-sm">Melihat semua undangan dari seluruh user</p>
         </div>
-        <Link href={`/admin/create?email=${encodeURIComponent(email)}`}>
-          <Button className="rounded-xl"><Plus className="w-4 h-4 mr-2" /> Buat Baru</Button>
-        </Link>
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
