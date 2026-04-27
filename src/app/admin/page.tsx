@@ -74,7 +74,7 @@ export default function AdminDashboard() {
               </div>
 
               <div className="grid grid-cols-2 gap-2 pt-2">
-                <Link href={`/admin/edit/${w.wedding_id}`} className="w-full">
+                <Link href={`/dashboard/edit/${w.wedding_id}`} className="w-full">
                   <Button variant="outline" size="sm" className="w-full text-xs rounded-lg border-slate-200">
                     <Edit className="w-3 h-3 mr-2" /> Manage
                   </Button>

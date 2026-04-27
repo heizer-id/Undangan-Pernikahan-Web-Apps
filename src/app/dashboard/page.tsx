@@ -190,7 +190,7 @@ export default function UserDashboard() {
             <h1 className="text-4xl font-serif font-bold text-slate-900">Selamat Datang</h1>
             <p className="text-slate-500 mt-2">Anda memiliki {weddings.length} undangan aktif.</p>
           </div>
-          <Link href={`/admin/create?email=${encodeURIComponent(email)}`}>
+          <Link href={`/dashboard/create?email=${encodeURIComponent(email)}`}>
             <Button size="lg" className="rounded-2xl h-14 px-8 shadow-xl shadow-slate-200">
                <Plus className="w-5 h-5 mr-2" /> Buat Undangan Baru
             </Button>
@@ -205,7 +205,7 @@ export default function UserDashboard() {
                 <Plus className="w-10 h-10" />
              </div>
              <p className="text-slate-500">Anda belum membuat undangan apapun.</p>
-             <Link href={`/admin/create?email=${encodeURIComponent(email)}`}>
+             <Link href={`/dashboard/create?email=${encodeURIComponent(email)}`}>
                 <Button variant="outline" className="rounded-full">Mulai Sekarang</Button>
              </Link>
           </div>
@@ -236,7 +236,7 @@ export default function UserDashboard() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
-                    <Link href={`/admin/edit/${w.wedding_id}`}>
+                    <Link href={`/dashboard/edit/${w.wedding_id}`}>
                       <Button className="w-full rounded-xl bg-slate-900 border-none h-11">
                         <Edit className="w-4 h-4 mr-2" /> Kelola
                       </Button>
