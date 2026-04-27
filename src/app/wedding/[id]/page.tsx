@@ -123,7 +123,12 @@ export default async function WeddingPage({ params }: { params: Promise<{ id: st
           </div>
           
           <div className="grid md:grid-cols-2 gap-16">
-            <div className="space-y-6">
+            <div className="space-y-6 flex flex-col items-center">
+              {wedding.bride_photo && (
+                <div className="w-48 h-64 rounded-[3rem] overflow-hidden shadow-2xl mb-4 border-4 border-white/50 rotate-[-2deg] hover:rotate-0 transition-transform duration-500">
+                  <img src={getGoogleDriveDirectLink(wedding.bride_photo)} alt={wedding.bride_name} className="w-full h-full object-cover" />
+                </div>
+              )}
               <h3 className={`text-3xl ${activeTheme.fontHeading}`}>{wedding.bride_name || "Mempelai Wanita"}</h3>
               <p className="opacity-80">{wedding.bride_parents}</p>
               {wedding.bride_ig && (
@@ -132,7 +137,12 @@ export default async function WeddingPage({ params }: { params: Promise<{ id: st
                 </a>
               )}
             </div>
-            <div className="space-y-6">
+            <div className="space-y-6 flex flex-col items-center">
+              {wedding.groom_photo && (
+                <div className="w-48 h-64 rounded-[3rem] overflow-hidden shadow-2xl mb-4 border-4 border-white/50 rotate-[2deg] hover:rotate-0 transition-transform duration-500">
+                  <img src={getGoogleDriveDirectLink(wedding.groom_photo)} alt={wedding.groom_name} className="w-full h-full object-cover" />
+                </div>
+              )}
               <h3 className={`text-3xl ${activeTheme.fontHeading}`}>{wedding.groom_name || "Mempelai Pria"}</h3>
               <p className="opacity-80">{wedding.groom_parents}</p>
               {wedding.groom_ig && (

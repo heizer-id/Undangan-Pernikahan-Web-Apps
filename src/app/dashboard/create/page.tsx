@@ -123,6 +123,10 @@ function CreateWeddingForm() {
                     <Label className="text-emerald-900">Username Instagram</Label>
                     <Input {...register("bride_ig")} placeholder="@juliet_capulet" className="rounded-xl h-11" />
                   </div>
+                  <div className="space-y-2">
+                    <Label className="text-emerald-900">URL Foto (Profil)</Label>
+                    <Input {...register("bride_photo")} placeholder="Link Foto Profil Mempelai Wanita" className="rounded-xl h-11" />
+                  </div>
                 </div>
               </div>
 
@@ -141,6 +145,10 @@ function CreateWeddingForm() {
                   <div className="space-y-2">
                     <Label className="text-blue-900">Username Instagram</Label>
                     <Input {...register("groom_ig")} placeholder="@romeo_montague" className="rounded-xl h-11" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-blue-900">URL Foto (Profil)</Label>
+                    <Input {...register("groom_photo")} placeholder="Link Foto Profil Mempelai Pria" className="rounded-xl h-11" />
                   </div>
                 </div>
               </div>

@@ -4,9 +4,11 @@ export interface Wedding {
   bride_name?: string;
   bride_parents?: string;
   bride_ig?: string;
+  bride_photo?: string;
   groom_name?: string;
   groom_parents?: string;
   groom_ig?: string;
+  groom_photo?: string;
   date: string; // ISO String
   venue: string;
   story: string;

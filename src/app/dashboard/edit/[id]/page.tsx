@@ -59,7 +59,9 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
             groom_ig: wRes.data.groom_ig || "",
             music_url: wRes.data.music_url || "",
             gallery_photos: wRes.data.gallery_photos || "",
-            digital_gifts: wRes.data.digital_gifts || ""
+            digital_gifts: wRes.data.digital_gifts || "",
+            bride_photo: wRes.data.bride_photo || "",
+            groom_photo: wRes.data.groom_photo || ""
           });
         }
         if (gRes.success) setGuests(gRes.data);
@@ -148,6 +150,10 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
                           <Label className="text-[10px] font-bold">Instagram</Label>
                           <Input {...register("bride_ig")} className="rounded-lg h-9 text-sm" />
                         </div>
+                        <div className="space-y-1">
+                          <Label className="text-[10px] font-bold">URL Foto (Profil)</Label>
+                          <Input {...register("bride_photo")} className="rounded-lg h-9 text-sm" />
+                        </div>
                       </div>
                     </div>
 
@@ -165,6 +171,10 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
                         <div className="space-y-1">
                           <Label className="text-[10px] font-bold">Instagram</Label>
                           <Input {...register("groom_ig")} className="rounded-lg h-9 text-sm" />
+                        </div>
+                        <div className="space-y-1">
+                          <Label className="text-[10px] font-bold">URL Foto (Profil)</Label>
+                          <Input {...register("groom_photo")} className="rounded-lg h-9 text-sm" />
                         </div>
                       </div>
                     </div>

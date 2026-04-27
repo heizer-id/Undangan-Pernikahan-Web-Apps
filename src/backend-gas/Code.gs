@@ -12,7 +12,7 @@ function setup() {
   let weddingsSheet = ss.getSheetByName(CONFIG.SHEET_WEDDINGS);
   if (!weddingsSheet) {
     weddingsSheet = ss.insertSheet(CONFIG.SHEET_WEDDINGS);
-    weddingsSheet.appendRow(['wedding_id', 'couple_name', 'date', 'venue', 'story', 'cover_photo', 'user_email', 'template_theme', 'guest_password', 'created_at', 'is_published', 'bride_name', 'bride_parents', 'bride_ig', 'groom_name', 'groom_parents', 'groom_ig', 'music_url', 'gallery_photos', 'digital_gifts']);
+    weddingsSheet.appendRow(['wedding_id', 'couple_name', 'date', 'venue', 'story', 'cover_photo', 'user_email', 'template_theme', 'guest_password', 'created_at', 'is_published', 'bride_name', 'bride_parents', 'bride_ig', 'groom_name', 'groom_parents', 'groom_ig', 'music_url', 'gallery_photos', 'digital_gifts', 'bride_photo', 'groom_photo']);
   }
   
   // Guests
@@ -129,7 +129,9 @@ function doPost(e) {
         body.groom_ig || '',
         body.music_url || '',
         body.gallery_photos || '',
-        body.digital_gifts || ''
+        body.digital_gifts || '',
+        body.bride_photo || '',
+        body.groom_photo || ''
       ]);
       return response({ wedding_id: newId });
     }
@@ -163,9 +165,11 @@ function doPost(e) {
         body.groom_ig || '',
         body.music_url || '',
         body.gallery_photos || '',
-        body.digital_gifts || ''
+        body.digital_gifts || '',
+        body.bride_photo || '',
+        body.groom_photo || ''
       ]];
-      s.getRange(rowIndex, 1, 1, 20).setValues(values);
+      s.getRange(rowIndex, 1, 1, 22).setValues(values);
       return response({ wedding_id: body.wedding_id });
     }
 
