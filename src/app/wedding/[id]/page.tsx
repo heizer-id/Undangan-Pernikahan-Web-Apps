@@ -9,6 +9,7 @@ import { CoverPage } from "@/components/wedding/CoverPage";
 import { PhotoGallery } from "@/components/wedding/PhotoGallery";
 import { DigitalGift } from "@/components/wedding/DigitalGift";
 import { MapPin, CalendarHeart, AtSign } from "lucide-react";
+import { getGoogleDriveDirectLink } from "@/lib/utils";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     openGraph: {
       title,
       description,
-      images: wedding.cover_photo ? [wedding.cover_photo] : [],
+      images: wedding.cover_photo ? [getGoogleDriveDirectLink(wedding.cover_photo)] : [],
     }
   };
 }

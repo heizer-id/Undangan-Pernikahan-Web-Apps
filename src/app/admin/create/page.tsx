@@ -146,8 +146,8 @@ function CreateWeddingForm() {
 
                 <div className="space-y-2">
                   <Label>URL Foto Cover (Opsional)</Label>
-                  <Input {...register("cover_photo")} placeholder="https://..." />
-                  <p className="text-xs text-slate-500">Anda dapat menggunakan URL gambar dari Unsplash / ImgBB.</p>
+                  <Input {...register("cover_photo")} placeholder="Link Unsplash atau Google Drive" />
+                  <p className="text-xs text-slate-500">Mendukung link Google Drive (Pastikan setting: "Anyone with the link can view").</p>
                 </div>
               </div>
 

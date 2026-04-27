@@ -3,13 +3,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { getGoogleDriveDirectLink } from "@/lib/utils";
 
 export function PhotoGallery({ photos }: { photos?: string }) {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
 
   if (!photos) return null;
 
-  const photoUrls = photos.split(',').map(p => p.trim()).filter(Boolean);
+  const photoUrls = photos.split(',').map(p => getGoogleDriveDirectLink(p.trim())).filter(Boolean);
 
   if (photoUrls.length === 0) return null;
 

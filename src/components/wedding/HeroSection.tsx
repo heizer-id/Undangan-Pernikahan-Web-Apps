@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { getGoogleDriveDirectLink } from "@/lib/utils";
 
 interface HeroSectionProps {
   coupleName: string;
@@ -13,7 +14,7 @@ interface HeroSectionProps {
 export function HeroSection({ coupleName, theme, date, coverPhoto }: HeroSectionProps) {
   const isModern = theme === "modern";
   const defaultBg = "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=2000";
-  const bgImage = coverPhoto && coverPhoto.startsWith('http') ? coverPhoto : defaultBg;
+  const bgImage = coverPhoto && coverPhoto.startsWith('http') ? getGoogleDriveDirectLink(coverPhoto) : defaultBg;
 
   const names = coupleName.split('&').map(n => n.trim());
   const formattedDate = new Date(date).toLocaleDateString("id-ID", {

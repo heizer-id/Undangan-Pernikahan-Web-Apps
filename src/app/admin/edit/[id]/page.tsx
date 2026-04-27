@@ -177,7 +177,8 @@ export default function EditWeddingPage({ params }: { params: Promise<{ id: stri
 
                 <div className="space-y-2">
                   <Label>URL Foto Cover</Label>
-                  <Input {...register("cover_photo")} />
+                  <Input {...register("cover_photo")} placeholder="Link Unsplash atau Google Drive" />
+                  <p className="text-[10px] text-slate-500">Mendukung link Google Drive (Pastikan setting: "Anyone with the link can view").</p>
                 </div>
 
                 <div className="space-y-2">
